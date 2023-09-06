@@ -1,5 +1,7 @@
-package com.example.emonitorback;
+package com.example.emonitorback.service;
 
+import com.example.emonitorback.domain.entities.User;
+import com.example.emonitorback.domain.repo.UserRepo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

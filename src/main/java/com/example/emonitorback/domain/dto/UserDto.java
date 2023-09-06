@@ -1,5 +1,6 @@
-package com.example.emonitorback;
+package com.example.emonitorback.domain.dto;
 
+import com.example.emonitorback.domain.entities.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

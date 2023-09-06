@@ -1,5 +1,8 @@
-package com.example.emonitorback;
+package com.example.emonitorback.controller;
 
+import com.example.emonitorback.domain.entities.User;
+import com.example.emonitorback.domain.dto.UserDto;
+import com.example.emonitorback.service.UserService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
