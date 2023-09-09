@@ -1,7 +1,6 @@
 package com.example.emonitorback.domain.dto;
 
 import com.example.emonitorback.domain.entities.Message;
-import com.example.emonitorback.domain.entities.Ticket;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,17 +10,11 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class TicketDto {
-    private String subject;
+public class MessageDto {
     private String content;
-    private Long topicId;
+    private Long ticketId;
 
-    public Ticket getTicket()
-    {
-        return new Ticket(subject, topicId, (long) (Math.random()*100), (long)(Math.random()*100));
-    }
-
-    public Message getMessage(Long ticketId)
+    public Message getMessage()
     {
         return new Message(content, ticketId, (long)(Math.random()*100));
     }

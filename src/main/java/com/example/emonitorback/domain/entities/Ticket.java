@@ -23,9 +23,6 @@ public class Ticket {
     @Column
     private String subject;
 
-    @Column(columnDefinition="TEXT")
-    private String content;
-
     @Column
     private Long topicId;
 
@@ -47,9 +44,8 @@ public class Ticket {
     )
     private List<User> users;
 
-    public  Ticket(String subject, String content, Long topicId, Long studentCreatorId, Long assignedMonitorId) {
+    public  Ticket(String subject, Long topicId, Long studentCreatorId, Long assignedMonitorId) {
         this.subject = subject;
-        this.content = content;
         this.topicId = topicId;
         this.studentCreatorId = studentCreatorId;
         this.assignedMonitorId = assignedMonitorId;

@@ -2,6 +2,9 @@ package com.example.emonitorback.domain.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+
+import java.util.Date;
 
 @Entity
 @Getter
@@ -17,7 +20,11 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(updatable = false)
+    private Date createdAt;
+
+    @Column(columnDefinition="TEXT")
     private String content;
 
     @Column
@@ -25,6 +32,11 @@ public class Message {
 
     @Column
     private Long senderId;
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = new Date();
+    }
 
     public Message(String content, Long ticketId, Long senderId) {
         this.content = content;
