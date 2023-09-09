@@ -24,9 +24,9 @@ public class Topic {
 
     @ManyToMany
     @JoinTable(
-        name = "monitor_topics",
-        joinColumns = @JoinColumn(name = "monitor_id"),
-        inverseJoinColumns = @JoinColumn(name = "topic_id")
+        name = "monitorTopics",
+        joinColumns = @JoinColumn(name = "monitorId"),
+        inverseJoinColumns = @JoinColumn(name = "topicId")
     )
     private List<User> users;
 

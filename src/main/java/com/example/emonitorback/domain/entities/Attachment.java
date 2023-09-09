@@ -21,10 +21,10 @@ public class Attachment {
     private String path;
 
     @Column
-    private Long message_id;
+    private Long messageId;
 
-    public Attachment(String path, Long message_id) {
+    public Attachment(String path, Long messageId) {
         this.path = path;
-        this.message_id = message_id;
+        this.messageId = messageId;
     }
 }
