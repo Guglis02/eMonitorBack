@@ -15,10 +15,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+import java.security.Key;
+import io.jsonwebtoken.security.Keys;
+
 @Service
 public class JwtService {
 
-    private static final String SECRET_KEY = "gustavo";
+    //private static final String SECRET_KEY = "";
 
     public String extractUsername(String token){
         return extractClaim(token, Claims::getSubject);
@@ -54,7 +57,7 @@ public class JwtService {
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000*60*24 * 30)) //30 days
-                .signWith(getSignInKey(), SignatureAlgorithm.ES256)
+                .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
 
@@ -68,7 +71,9 @@ public class JwtService {
     }
 
     private Key getSignInKey(){
-        return Keys.hmacShaKeyFor(Decoders.BASE64.decode(SECRET_KEY));
+        return Keys.secretKeyFor(SignatureAlgorithm.HS256);
+       // byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
+       // return Keys.hmacShaKeyFor(keyBytes);
     }
 
 
