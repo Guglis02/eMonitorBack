@@ -1,7 +1,8 @@
 databases:
-  - name: db
-    startCommand: docker run --env POSTGRES_USER=postgres --env POSTGRES_PASSWORD=postgres --name db -p 5432:5432 -d postgres:13.1-alpine
-    healthCheckPath: /
+  - name: postgres
+    databaseName: postgres
+    user: postgres
+    postgresMajorVersion: 14
 
 services:
     type: web
@@ -10,11 +11,11 @@ services:
     startCommand: docker run -p 8080:8080 --env SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/postgres --env SPRING_DATASOURCE_USERNAME=postgres --env SPRING_DATASOURCE_PASSWORD=postgres --env SPRING_JPA_HIBERNATE_DDL_AUTO=update docker-spring-boot-postgres:latest
     env:
       - key: SPRING_DATASOURCE_URL
-        fromDatabase: db
+        fromDatabase: postgres
       - key: SPRING_DATASOURCE_USERNAME
-        fromDatabase: db
+        fromDatabase: postgres
       - key: SPRING_DATASOURCE_PASSWORD
-        fromDatabase: db
+        fromDatabase: postgres
       - key: SPRING_JPA_HIBERNATE_DDL_AUTO
         value: "update"
     healthCheckPath: /
