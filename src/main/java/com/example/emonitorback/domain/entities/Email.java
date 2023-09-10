@@ -18,7 +18,7 @@ public class Email {
     private Long id;
 
     @Column
-    private Long notification_id;
+    private Long notificationId;
 
     @Column
     private String subject;
@@ -26,8 +26,8 @@ public class Email {
     @Column
     private String content;
 
-    public Email(Long notification_id, String subject, String content) {
-        this.notification_id = notification_id;
+    public Email(Long notificationId, String subject, String content) {
+        this.notificationId = notificationId;
         this.subject = subject;
         this.content = content;
     }

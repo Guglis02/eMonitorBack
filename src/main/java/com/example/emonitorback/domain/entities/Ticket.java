@@ -24,10 +24,7 @@ public class Ticket {
     private String subject;
 
     @Column
-    private String content;
-
-    @Column
-    private String topicId;
+    private Long topicId;
 
     @Column
     private Long studentCreatorId;
@@ -36,22 +33,22 @@ public class Ticket {
     private Long assignedMonitorId;
 
     @Column
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
     @ManyToMany
     @JoinTable(
-        name = "ticket_users",
-        joinColumns = @JoinColumn(name = "ticket_id"),
-        inverseJoinColumns = @JoinColumn(name = "user_id")
+        name = "ticketUsers",
+        joinColumns = @JoinColumn(name = "ticketId"),
+        inverseJoinColumns = @JoinColumn(name = "userId")
     )
     private List<User> users;
 
-    public  Ticket(String subject, String content, String topicId, Long studentCreatorId, Long assignedMonitorId, String status) {
+    public  Ticket(String subject, Long topicId, Long studentCreatorId, Long assignedMonitorId) {
         this.subject = subject;
-        this.content = content;
         this.topicId = topicId;
         this.studentCreatorId = studentCreatorId;
         this.assignedMonitorId = assignedMonitorId;
-        this.status = status;
+        this.status = Status.OPEN;
     }
 }

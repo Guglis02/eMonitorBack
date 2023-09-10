@@ -13,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Monitor extends User{
     @Column
-    private Integer university_origin;
+    private Integer universityOrigin;
 
     @OneToOne
     @JoinColumn(name = "id")
@@ -21,14 +21,14 @@ public class Monitor extends User{
 
     @ManyToMany
     @JoinTable(
-        name = "monitor_topics",
-        joinColumns = @JoinColumn(name = "monitor_id"),
-        inverseJoinColumns = @JoinColumn(name = "topic_id")
+        name = "monitorTopics",
+        joinColumns = @JoinColumn(name = "monitorId"),
+        inverseJoinColumns = @JoinColumn(name = "topicId")
     )
     private List<Topic> topics;
 
-    public Monitor(Integer university_origin, User user) {
-        this.university_origin = university_origin;
+    public Monitor(Integer universityOrigin, User user) {
+        this.universityOrigin = universityOrigin;
         this.user = user;
     }
 }

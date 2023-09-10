@@ -38,9 +38,9 @@ public class User implements UserDetails {
 
     @ManyToMany
     @JoinTable(
-        name = "ticket_users",
-        joinColumns = @JoinColumn(name = "ticket_id"),
-        inverseJoinColumns = @JoinColumn(name = "user_id")
+        name = "ticketUsers",
+        joinColumns = @JoinColumn(name = "ticketId"),
+        inverseJoinColumns = @JoinColumn(name = "userId")
     )
     private List<User> users;
 
