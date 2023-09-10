@@ -8,11 +8,12 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
 import javax.print.DocFlavor;
 import java.security.Key;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.security.NoSuchAlgorithmException;
+import java.util.*;
 import java.util.function.Function;
 
 import java.security.Key;
@@ -20,8 +21,7 @@ import io.jsonwebtoken.security.Keys;
 
 @Service
 public class JwtService {
-
-    //private static final String SECRET_KEY = "";
+    private static final String key = "cAMmpj/5NgYeAU6mZDs9yfXjbjTMvKrt5RN01inU+M8=";
 
     public String extractUsername(String token){
         return extractClaim(token, Claims::getSubject);
@@ -66,14 +66,24 @@ public class JwtService {
                 .parserBuilder()
                 .setSigningKey(getSignInKey())
                 .build()
-                .parseClaimsJwt(token)
+                .parseClaimsJws(token)
                 .getBody();
     }
 
     private Key getSignInKey(){
-        return Keys.secretKeyFor(SignatureAlgorithm.HS256);
-       // byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
-       // return Keys.hmacShaKeyFor(keyBytes);
+        return Keys.hmacShaKeyFor(Decoders.BASE64.decode(key));
+    }
+
+    private void printSecureKey(){
+        try {
+            KeyGenerator keyGen = KeyGenerator.getInstance("HmacSHA256");
+            SecretKey secretKey = keyGen.generateKey();
+            byte[] keyBytes = secretKey.getEncoded();
+            String keyBase64 = Base64.getEncoder().encodeToString(keyBytes);
+            System.out.println("Generated Key (Base64): " + keyBase64);
+        } catch (NoSuchAlgorithmException e) {
+            //
+        }
     }
 
 

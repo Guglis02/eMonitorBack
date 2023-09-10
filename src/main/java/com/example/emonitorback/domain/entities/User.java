@@ -24,13 +24,13 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @Column(nullable = false)
     private String name;
 
-    @Column
+    @Column(nullable = false)
     private String email;
 
-    @Column
+    @Column(nullable = false)
     private String password;
 
     @Enumerated(EnumType.STRING)
@@ -48,6 +48,7 @@ public class User implements UserDetails {
         this.name = name;
         this.email = email;
         this.password = password;
+        this.role = Role.USER;
     }
 
     @Override
