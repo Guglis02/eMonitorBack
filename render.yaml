@@ -1,0 +1,23 @@
+services:
+  - name: app
+    buildCommand: docker build -t docker-spring-boot-postgres:latest .
+    startCommand: docker run -p 8080:8080 --env SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/postgres --env SPRING_DATASOURCE_USERNAME=postgres --env SPRING_DATASOURCE_PASSWORD=postgres --env SPRING_JPA_HIBERNATE_DDL_AUTO=update docker-spring-boot-postgres:latest
+    env:
+      - key: DATABASE_URL
+        fromDatabase: db
+        toEnv: SPRING_DATASOURCE_URL
+      - key: POSTGRES_USER
+        fromDatabase: db
+        toEnv: SPRING_DATASOURCE_USERNAME
+      - key: POSTGRES_PASSWORD
+        fromDatabase: db
+        toEnv: SPRING_DATASOURCE_PASSWORD
+    healthCheckPath: /
+    github:
+      branch: main
+    ports:
+      - 8080
+
+  - name: db
+    startCommand: docker run --env POSTGRES_USER=postgres --env POSTGRES_PASSWORD=postgres --name db -p 5432:5432 -d postgres:13.1-alpine
+    healthCheckPath: /
