@@ -6,6 +6,7 @@ import com.example.emonitorback.domain.entities.Message;
 import com.example.emonitorback.domain.entities.Ticket;
 import com.example.emonitorback.service.MessageService;
 import com.example.emonitorback.service.TicketService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,8 +22,9 @@ public class TicketsController {
     }
 
     @GetMapping("/get-tickets")
-    public List<Ticket> getTickets(){
-        return ticketService.findAll();
+    public List<Ticket> getTickets()
+    {
+        return ticketService.findTickets();
     }
 
     @PostMapping("/insert-ticket")

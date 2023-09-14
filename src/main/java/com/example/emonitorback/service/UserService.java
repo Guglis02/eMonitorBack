@@ -2,6 +2,7 @@ package com.example.emonitorback.service;
 
 import com.example.emonitorback.domain.entities.User;
 import com.example.emonitorback.domain.repo.UserRepo;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,5 +23,8 @@ public class UserService {
         return userRepo.findAll();
     }
 
-
+    public User getCurrentUser()
+    {
+        return userRepo.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).orElseThrow();
+    }
 }
