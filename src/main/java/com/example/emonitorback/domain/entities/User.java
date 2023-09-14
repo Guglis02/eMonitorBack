@@ -34,6 +34,7 @@ public class User implements UserDetails {
     private String password;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Role role;
 
     @ManyToMany
@@ -48,7 +49,7 @@ public class User implements UserDetails {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.role = Role.USER;
+        this.role = Role.STUDENT;
     }
 
     @Override
