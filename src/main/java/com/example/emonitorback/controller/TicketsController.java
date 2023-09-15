@@ -34,6 +34,11 @@ public class TicketsController {
         messageService.save(message);
     }
 
+    @PostMapping("/claim-ticket")
+    public void claimTicket(@RequestBody Long ticketId){
+        ticketService.claimTicket(ticketId);
+    }
+
     @GetMapping("/get-messages")
     public List<Message> getMessages(@RequestBody Long ticketId){
         return messageService.findByTicketId(ticketId);

@@ -22,6 +22,15 @@ public class TicketService {
         return ticketRepo.save(ticket);
     }
 
+    public void claimTicket(Long ticketId)
+    {
+        User user = userService.getCurrentUser();
+        Ticket ticket = ticketRepo.findById(ticketId).orElseThrow();
+        ticket.setAssignedMonitorId(user.getId());
+        ticket.setStatus(Status.IN_PROGRESS);
+        ticketRepo.save(ticket);
+    }
+
     public List<Ticket> findTickets()
     {
         User user = userService.getCurrentUser();
