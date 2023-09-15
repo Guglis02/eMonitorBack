@@ -1,12 +1,11 @@
 package com.example.emonitorback.controller;
 
-import com.example.emonitorback.domain.dto.MessageDto;
-import com.example.emonitorback.domain.dto.TicketDto;
+import com.example.emonitorback.dto.MessageDto;
+import com.example.emonitorback.dto.TicketDto;
 import com.example.emonitorback.domain.entities.Message;
 import com.example.emonitorback.domain.entities.Ticket;
 import com.example.emonitorback.service.MessageService;
 import com.example.emonitorback.service.TicketService;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

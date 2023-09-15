@@ -1,4 +1,4 @@
-package com.example.emonitorback.domain.dto;
+package com.example.emonitorback.dto;
 
 import com.example.emonitorback.domain.entities.User;
 import lombok.AllArgsConstructor;
