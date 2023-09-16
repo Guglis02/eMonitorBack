@@ -16,13 +16,13 @@ public class TicketDto {
     private String content;
     private Long topicId;
 
-    public Ticket getTicket()
+    public Ticket getTicket(Long studentCreatorId)
     {
-        return new Ticket(subject, topicId, (long) (Math.random()*100), (long)(Math.random()*100));
+        return new Ticket(subject, topicId, studentCreatorId);
     }
 
-    public Message getMessage(Long ticketId)
+    public String getContent()
     {
-        return new Message(content, ticketId, (long)(Math.random()*100));
+        return content;
     }
 }

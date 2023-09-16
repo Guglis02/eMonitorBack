@@ -30,7 +30,7 @@ public class SecurityConfiguration {
                 .requestMatchers("/api/v1/auth/**")
                 .permitAll()
                 .anyRequest()
-                .hasAuthority("STUDENT")
+                .hasAnyAuthority("STUDENT", "MONITOR", "ADMIN")
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)

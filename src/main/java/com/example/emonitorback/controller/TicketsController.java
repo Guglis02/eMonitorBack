@@ -1,6 +1,8 @@
 package com.example.emonitorback.controller;
 
+import com.example.emonitorback.domain.entities.Report;
 import com.example.emonitorback.dto.MessageDto;
+import com.example.emonitorback.dto.ReportDto;
 import com.example.emonitorback.dto.TicketDto;
 import com.example.emonitorback.domain.entities.Message;
 import com.example.emonitorback.domain.entities.Ticket;
@@ -27,16 +29,34 @@ public class TicketsController {
     }
 
     @PostMapping("/insert-ticket")
-    public void insertTicket(@RequestBody TicketDto ticketDto){
-        Ticket ticket = ticketDto.getTicket();
-        Long ticketId = ticketService.save(ticket).getId();
-        Message message = ticketDto.getMessage(ticketId);
-        messageService.save(message);
+    public void insertTicket(@RequestBody TicketDto ticketDto)
+    {
+        ticketService.insertTicket(ticketDto);
     }
 
     @PostMapping("/claim-ticket")
     public void claimTicket(@RequestBody Long ticketId){
         ticketService.claimTicket(ticketId);
+    }
+
+    @PostMapping("/close-ticket")
+    public void closeTicket(@RequestBody Long ticketId){
+        ticketService.closeTicket(ticketId);
+    }
+
+    @PostMapping("/pass-ticket")
+    public void passTicket(@RequestBody Long ticketId){
+        ticketService.passTicket(ticketId);
+    }
+
+    @PostMapping("/report-ticket")
+    public void reportTicket(@RequestBody ReportDto reportDto){
+        ticketService.reportTicket(reportDto);
+    }
+
+    @GetMapping("/get-reports")
+    public List<Report> getReports(){
+        return ticketService.getReports();
     }
 
     @GetMapping("/get-messages")
@@ -46,7 +66,6 @@ public class TicketsController {
 
     @PostMapping("/insert-message")
     public void insertMessage(@RequestBody MessageDto messageDto){
-        Message message = messageDto.getMessage();
-        messageService.save(message);
+        messageService.insertMessage(messageDto);
     }
 }

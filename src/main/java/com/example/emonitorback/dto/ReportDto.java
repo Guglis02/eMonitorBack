@@ -1,6 +1,7 @@
 package com.example.emonitorback.dto;
 
 import com.example.emonitorback.domain.entities.Message;
+import com.example.emonitorback.domain.entities.Report;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,12 +11,12 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class MessageDto {
-    private String content;
+public class ReportDto {
     private Long ticketId;
+    private String context;
 
-    public Message getMessage(Long creatorId)
+    public Report getReport()
     {
-        return new Message(content, ticketId, creatorId);
+        return new Report(ticketId, context);
     }
 }
