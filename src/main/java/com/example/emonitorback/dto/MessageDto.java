@@ -14,8 +14,7 @@ public class MessageDto {
     private String content;
     private Long ticketId;
 
-    public Message getMessage(Long creatorId)
-    {
+    public Message getMessage(Long creatorId) {
         return new Message(content, ticketId, creatorId);
     }
 }

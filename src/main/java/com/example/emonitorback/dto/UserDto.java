@@ -15,7 +15,7 @@ public class UserDto {
     private String email;
     private String password;
 
-    public User getUser(){
+    public User getUser() {
         return new User(name, email, password);
     }
 }

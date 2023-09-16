@@ -1,6 +1,5 @@
 package com.example.emonitorback.dto;
 
-import com.example.emonitorback.domain.entities.Message;
 import com.example.emonitorback.domain.entities.Ticket;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,13 +15,11 @@ public class TicketDto {
     private String content;
     private Long topicId;
 
-    public Ticket getTicket(Long studentCreatorId)
-    {
+    public Ticket getTicket(Long studentCreatorId) {
         return new Ticket(subject, topicId, studentCreatorId);
     }
 
-    public String getContent()
-    {
+    public String getContent() {
         return content;
     }
 }

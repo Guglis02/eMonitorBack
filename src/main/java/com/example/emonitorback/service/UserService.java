@@ -12,19 +12,19 @@ public class UserService {
 
     private final UserRepo userRepo;
 
-    public UserService(UserRepo userRepo){
+    public UserService(UserRepo userRepo) {
         this.userRepo = userRepo;
     }
+
     public User save(User user) {
         return userRepo.save(user);
     }
 
-    public List<User> findAll(){
+    public List<User> findAll() {
         return userRepo.findAll();
     }
 
-    public User getCurrentUser()
-    {
+    public User getCurrentUser() {
         return userRepo.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).orElseThrow();
     }
 }

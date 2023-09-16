@@ -14,18 +14,17 @@ public class MessageService {
     private final MessageRepo messageRepo;
     private final UserService userService;
 
-    public Message save(Message message){
+    public Message save(Message message) {
         return messageRepo.save(message);
     }
 
-    public void insertMessage(MessageDto messageDto)
-    {
+    public void insertMessage(MessageDto messageDto) {
         Long creatorId = userService.getCurrentUser().getId();
         Message message = messageDto.getMessage(creatorId);
         messageRepo.save(message);
     }
 
-    public List<Message> findByTicketId(Long ticketId){
+    public List<Message> findByTicketId(Long ticketId) {
         return messageRepo.findByTicketId(ticketId);
     }
 }

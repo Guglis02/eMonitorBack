@@ -26,7 +26,7 @@ public class Report {
     @Column
     private Long ticketId;
 
-    @Column(columnDefinition="TEXT")
+    @Column(columnDefinition = "TEXT")
     private String context;
 
     @PrePersist

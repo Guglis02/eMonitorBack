@@ -1,11 +1,11 @@
 package com.example.emonitorback.controller;
 
 import com.example.emonitorback.config.JwtService;
-import com.example.emonitorback.dto.AuthenticationDto;
-import com.example.emonitorback.dto.UserDto;
 import com.example.emonitorback.domain.entities.Role;
 import com.example.emonitorback.domain.entities.User;
 import com.example.emonitorback.domain.repo.UserRepo;
+import com.example.emonitorback.dto.AuthenticationDto;
+import com.example.emonitorback.dto.UserDto;
 import com.example.emonitorback.response.AuthenticationResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -35,6 +35,7 @@ public class AuthenticationService {
         var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder().token(jwtToken).build();
     }
+
     public AuthenticationResponse authenticate(AuthenticationDto request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())

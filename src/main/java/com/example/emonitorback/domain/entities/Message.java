@@ -2,7 +2,6 @@ package com.example.emonitorback.domain.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
 
 import java.util.Date;
 
@@ -24,7 +23,7 @@ public class Message {
     @Column(updatable = false)
     private Date createdAt;
 
-    @Column(columnDefinition="TEXT")
+    @Column(columnDefinition = "TEXT")
     private String content;
 
     @Column
