@@ -1,12 +1,12 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres #jdbc:postgresql://dpg-cjutgi7hdsdc73f0nhf0-a.oregon-postgres.render.com:5432/db_dvd9
+    url: jdbc:postgresql://dpg-cjutgi7hdsdc73f0nhf0-a.oregon-postgres.render.com:5432/db_dvd9 #jdbc:postgresql://localhost:5432/postgres
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     show-sql: true
     properties:
       hibernate:
