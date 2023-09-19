@@ -4,7 +4,7 @@ import com.example.emonitorback.domain.entities.Role;
 import com.example.emonitorback.dto.AuthenticationDto;
 import com.example.emonitorback.dto.UserDto;
 import com.example.emonitorback.response.AuthenticationResponse;
-import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import com.example.emonitorback.service.AuthenticationService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -33,8 +33,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthenticationResponse> register(@RequestBody AuthenticationDto request) {
-        System.out.println("batata");
+    public ResponseEntity<AuthenticationResponse> login(@RequestBody AuthenticationDto request) {
         return ResponseEntity.ok(service.authenticate(request));
     }
 }

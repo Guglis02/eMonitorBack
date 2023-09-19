@@ -1,4 +1,4 @@
-package com.example.emonitorback.controller;
+package com.example.emonitorback.service;
 
 import com.example.emonitorback.config.JwtService;
 import com.example.emonitorback.domain.entities.Role;
@@ -33,17 +33,23 @@ public class AuthenticationService {
                 .build();
         userRepo.save(user);
         var jwtToken = jwtService.generateToken(user);
-        return AuthenticationResponse.builder().token(jwtToken).build();
+        return AuthenticationResponse.builder()
+                .token(jwtToken)
+                .role(role)
+                .build();
     }
 
-    public AuthenticationResponse authenticate(AuthenticationDto request) {
+    public AuthenticationResponse authenticate(AuthenticationDto request){
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
         );
         var user = userRepo.findByEmail(request.getEmail())
                 .orElseThrow(InvalidParameterException::new);
         var token = jwtService.generateToken(user);
-        return AuthenticationResponse.builder().token(token).build();
+        return AuthenticationResponse.builder()
+                .token(token)
+                .role(user.getRole())
+                .build();
 
     }
 

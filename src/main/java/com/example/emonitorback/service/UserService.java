@@ -5,6 +5,8 @@ import com.example.emonitorback.domain.repo.UserRepo;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.security.InvalidParameterException;
+import java.util.InvalidPropertiesFormatException;
 import java.util.List;
 
 @Service
@@ -25,6 +27,6 @@ public class UserService {
     }
 
     public User getCurrentUser() {
-        return userRepo.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).orElseThrow();
+        return userRepo.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).orElseThrow(InvalidParameterException::new);
     }
 }
