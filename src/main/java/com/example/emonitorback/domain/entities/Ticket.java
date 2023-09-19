@@ -38,17 +38,17 @@ public class Ticket {
 
     @ManyToMany
     @JoinTable(
-        name = "ticketUsers",
-        joinColumns = @JoinColumn(name = "ticketId"),
-        inverseJoinColumns = @JoinColumn(name = "userId")
+            name = "ticketUsers",
+            joinColumns = @JoinColumn(name = "ticketId"),
+            inverseJoinColumns = @JoinColumn(name = "userId")
     )
     private List<User> users;
 
-    public  Ticket(String subject, Long topicId, Long studentCreatorId, Long assignedMonitorId) {
+    public Ticket(String subject, Long topicId, Long studentCreatorId) {
         this.subject = subject;
         this.topicId = topicId;
         this.studentCreatorId = studentCreatorId;
-        this.assignedMonitorId = assignedMonitorId;
+        this.assignedMonitorId = null;
         this.status = Status.OPEN;
     }
 }

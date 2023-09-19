@@ -11,8 +11,8 @@ import java.util.Date;
 @EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "message")
-public class Message {
+@Table(name = "report")
+public class Report {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -23,23 +23,19 @@ public class Message {
     @Column(updatable = false)
     private Date createdAt;
 
-    @Column(columnDefinition = "TEXT")
-    private String content;
-
     @Column
     private Long ticketId;
 
-    @Column
-    private Long senderId;
+    @Column(columnDefinition = "TEXT")
+    private String context;
 
     @PrePersist
     protected void onCreate() {
         createdAt = new Date();
     }
 
-    public Message(String content, Long ticketId, Long senderId) {
-        this.content = content;
+    public Report(Long ticketId, String context) {
         this.ticketId = ticketId;
-        this.senderId = senderId;
+        this.context = context;
     }
 }

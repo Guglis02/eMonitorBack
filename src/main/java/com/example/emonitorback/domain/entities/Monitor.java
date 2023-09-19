@@ -11,7 +11,7 @@ import java.util.List;
 @EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
-public class Monitor extends User{
+public class Monitor extends User {
     @Column
     private Integer universityOrigin;
 
@@ -21,9 +21,9 @@ public class Monitor extends User{
 
     @ManyToMany
     @JoinTable(
-        name = "monitorTopics",
-        joinColumns = @JoinColumn(name = "monitorId"),
-        inverseJoinColumns = @JoinColumn(name = "topicId")
+            name = "monitorTopics",
+            joinColumns = @JoinColumn(name = "monitorId"),
+            inverseJoinColumns = @JoinColumn(name = "topicId")
     )
     private List<Topic> topics;
 

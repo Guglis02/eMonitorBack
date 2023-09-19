@@ -2,23 +2,29 @@ package com.example.emonitorback.service;
 
 import com.example.emonitorback.domain.entities.Message;
 import com.example.emonitorback.domain.repo.MessageRepo;
+import com.example.emonitorback.dto.MessageDto;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class MessageService {
     private final MessageRepo messageRepo;
+    private final UserService userService;
 
-    public MessageService(MessageRepo messageRepo){
-        this.messageRepo = messageRepo;
-    }
-
-    public Message save(Message message){
+    public Message save(Message message) {
         return messageRepo.save(message);
     }
 
-    public List<Message> findByTicketId(Long ticketId){
+    public void insertMessage(MessageDto messageDto) {
+        Long creatorId = userService.getCurrentUser().getId();
+        Message message = messageDto.getMessage(creatorId);
+        messageRepo.save(message);
+    }
+
+    public List<Message> findByTicketId(Long ticketId) {
         return messageRepo.findByTicketId(ticketId);
     }
 }

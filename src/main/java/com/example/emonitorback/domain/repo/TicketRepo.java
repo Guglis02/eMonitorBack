@@ -1,11 +1,10 @@
 package com.example.emonitorback.domain.repo;
 
-import com.example.emonitorback.domain.entities.Message;
+import com.example.emonitorback.domain.entities.Status;
 import com.example.emonitorback.domain.entities.Ticket;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import com.example.emonitorback.domain.entities.Status;
 
 import java.util.List;
 
