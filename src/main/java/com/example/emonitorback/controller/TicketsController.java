@@ -44,6 +44,7 @@ public class TicketsController {
     }
 
     @PatchMapping("/rename-ticket")
+    @Operation(summary = "Aluno renomeia um ticket.")
     public ResponseEntity<Long> renameTicket(@RequestBody EditTicketDto editTicketDto){
         return new ResponseEntity<>(ticketService.editTicket(editTicketDto), HttpStatus.OK);
     }
