@@ -44,19 +44,19 @@ public class TicketsController {
 
     @PostMapping("/claim-ticket")
     @Operation(summary = "Monitor pega um ticket para si.")
-    public ResponseEntity<Long> claimTicket(@RequestBody Long ticketId) {
+    public ResponseEntity<Long> claimTicket(@RequestParam Long ticketId) {
         return new ResponseEntity<>(ticketService.claimTicket(ticketId), HttpStatus.CREATED);
     }
 
     @PostMapping("/close-ticket")
     @Operation(summary = "Monitor fecha um ticket.")
-    public ResponseEntity<Long> closeTicket(@RequestBody Long ticketId) {
+    public ResponseEntity<Long> closeTicket(@RequestParam Long ticketId) {
         return new ResponseEntity<>(ticketService.closeTicket(ticketId), HttpStatus.OK);
     }
 
     @PostMapping("/pass-ticket")
     @Operation(summary = "Monitor passa um ticket, na prática ele perde o assign e o ticket volta a ficar aberto.")
-    public ResponseEntity<Long> passTicket(@RequestBody Long ticketId) {
+    public ResponseEntity<Long> passTicket(@RequestParam Long ticketId) {
         return new ResponseEntity<>(ticketService.passTicket(ticketId), HttpStatus.OK);
     }
 
@@ -74,7 +74,7 @@ public class TicketsController {
 
     @GetMapping("/get-messages")
     @Operation(summary = "Retorna todas as mensagens de um determinado ticket.")
-    public List<Message> getMessages(@RequestBody Long ticketId) {
+    public List<Message> getMessages(@RequestParam Long ticketId) {
         return messageService.findByTicketId(ticketId);
     }
 
