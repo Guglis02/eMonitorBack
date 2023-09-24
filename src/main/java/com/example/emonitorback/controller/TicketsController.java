@@ -3,6 +3,7 @@ package com.example.emonitorback.controller;
 import com.example.emonitorback.domain.entities.Message;
 import com.example.emonitorback.domain.entities.Report;
 import com.example.emonitorback.domain.entities.Ticket;
+import com.example.emonitorback.dto.EditTicketDto;
 import com.example.emonitorback.dto.MessageDto;
 import com.example.emonitorback.dto.ReportDto;
 import com.example.emonitorback.dto.TicketDto;
@@ -40,6 +41,11 @@ public class TicketsController {
     @Operation(summary = "Aluno abre um ticket.")
     public ResponseEntity<Long> insertTicket(@RequestBody TicketDto ticketDto) {
         return new ResponseEntity<>(ticketService.insertTicket(ticketDto), HttpStatus.CREATED);
+    }
+
+    @PatchMapping("/rename-ticket")
+    public ResponseEntity<Long> renameTicket(@RequestBody EditTicketDto editTicketDto){
+        return new ResponseEntity<>(ticketService.editTicket(editTicketDto), HttpStatus.OK);
     }
 
     @PostMapping("/claim-ticket")

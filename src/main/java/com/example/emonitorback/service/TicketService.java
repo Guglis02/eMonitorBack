@@ -3,11 +3,14 @@ package com.example.emonitorback.service;
 import com.example.emonitorback.domain.entities.*;
 import com.example.emonitorback.domain.repo.ReportRepo;
 import com.example.emonitorback.domain.repo.TicketRepo;
+import com.example.emonitorback.dto.EditTicketDto;
 import com.example.emonitorback.dto.ReportDto;
 import com.example.emonitorback.dto.TicketDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.AuthorizationServiceException;
 import org.springframework.stereotype.Service;
 
+import java.security.InvalidParameterException;
 import java.util.List;
 
 @Service
@@ -25,6 +28,16 @@ public class TicketService {
         Message message = new Message(ticketDto.getContent(), ticketId, creatorId);
         messageService.save(message);
         return ticketId;
+    }
+
+    public Long editTicket(EditTicketDto editTicketDto){
+        var userId = userService.getCurrentUser().getId();
+        var ticket = ticketRepo.findById(editTicketDto.getId()).orElseThrow(InvalidParameterException::new);
+        if(userId != ticket.getStudentCreatorId()){
+            throw new AuthorizationServiceException("Unauthorized");
+        }
+        ticket.setSubject(editTicketDto.getNewSubject());
+        return ticketRepo.save(ticket).getId();
     }
 
     public Long claimTicket(Long ticketId) {
