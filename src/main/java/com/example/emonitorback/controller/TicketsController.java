@@ -10,6 +10,8 @@ import com.example.emonitorback.service.MessageService;
 import com.example.emonitorback.service.TicketService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,32 +38,32 @@ public class TicketsController {
 
     @PostMapping("/insert-ticket")
     @Operation(summary = "Aluno abre um ticket.")
-    public void insertTicket(@RequestBody TicketDto ticketDto) {
-        ticketService.insertTicket(ticketDto);
+    public ResponseEntity<Long> insertTicket(@RequestBody TicketDto ticketDto) {
+        return new ResponseEntity<>(ticketService.insertTicket(ticketDto), HttpStatus.CREATED);
     }
 
     @PostMapping("/claim-ticket")
     @Operation(summary = "Monitor pega um ticket para si.")
-    public void claimTicket(@RequestBody Long ticketId) {
-        ticketService.claimTicket(ticketId);
+    public ResponseEntity<Long> claimTicket(@RequestBody Long ticketId) {
+        return new ResponseEntity<>(ticketService.claimTicket(ticketId), HttpStatus.CREATED);
     }
 
     @PostMapping("/close-ticket")
     @Operation(summary = "Monitor fecha um ticket.")
-    public void closeTicket(@RequestBody Long ticketId) {
-        ticketService.closeTicket(ticketId);
+    public ResponseEntity<Long> closeTicket(@RequestBody Long ticketId) {
+        return new ResponseEntity<>(ticketService.closeTicket(ticketId), HttpStatus.OK);
     }
 
     @PostMapping("/pass-ticket")
     @Operation(summary = "Monitor passa um ticket, na prática ele perde o assign e o ticket volta a ficar aberto.")
-    public void passTicket(@RequestBody Long ticketId) {
-        ticketService.passTicket(ticketId);
+    public ResponseEntity<Long> passTicket(@RequestBody Long ticketId) {
+        return new ResponseEntity<>(ticketService.passTicket(ticketId), HttpStatus.OK);
     }
 
     @PostMapping("/report-ticket")
     @Operation(summary = "Aluno denuncia um ticket, o ticket é fechado.")
-    public void reportTicket(@RequestBody ReportDto reportDto) {
-        ticketService.reportTicket(reportDto);
+    public ResponseEntity<Long> reportTicket(@RequestBody ReportDto reportDto) {
+        return new ResponseEntity<>(ticketService.reportTicket(reportDto), HttpStatus.OK);
     }
 
     @GetMapping("/get-reports")
@@ -78,7 +80,7 @@ public class TicketsController {
 
     @PostMapping("/insert-message")
     @Operation(summary = "Envia uma mensagem no chat de um ticket.")
-    public void insertMessage(@RequestBody MessageDto messageDto) {
-        messageService.insertMessage(messageDto);
+    public ResponseEntity<Long> insertMessage(@RequestBody MessageDto messageDto) {
+        return new ResponseEntity<>(messageService.insertMessage(messageDto), HttpStatus.CREATED);
     }
 }

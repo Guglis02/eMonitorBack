@@ -18,41 +18,43 @@ public class TicketService {
     private final UserService userService;
     private final MessageService messageService;
 
-    public void insertTicket(TicketDto ticketDto) {
+    public Long insertTicket(TicketDto ticketDto) {
         Long creatorId = userService.getCurrentUser().getId();
         Ticket ticket = ticketDto.getTicket(creatorId);
         Long ticketId = ticketRepo.save(ticket).getId();
         Message message = new Message(ticketDto.getContent(), ticketId, creatorId);
         messageService.save(message);
+        return ticketId;
     }
 
-    public void claimTicket(Long ticketId) {
+    public Long claimTicket(Long ticketId) {
         User user = userService.getCurrentUser();
         Ticket ticket = ticketRepo.findById(ticketId).orElseThrow();
         ticket.setAssignedMonitorId(user.getId());
         ticket.setStatus(Status.IN_PROGRESS);
-        ticketRepo.save(ticket);
+        return ticketRepo.save(ticket).getId();
     }
 
-    public void closeTicket(Long ticketId) {
+    public Long closeTicket(Long ticketId) {
         Ticket ticket = ticketRepo.findById(ticketId).orElseThrow();
         ticket.setStatus(Status.CLOSED);
-        ticketRepo.save(ticket);
+        return ticketRepo.save(ticket).getId();
     }
 
-    public void passTicket(Long ticketId) {
+    public Long passTicket(Long ticketId) {
         Ticket ticket = ticketRepo.findById(ticketId).orElseThrow();
         ticket.setAssignedMonitorId(null);
         ticket.setStatus(Status.OPEN);
-        ticketRepo.save(ticket);
+        return ticketRepo.save(ticket).getId();
     }
 
-    public void reportTicket(ReportDto reportDto) {
+    public Long reportTicket(ReportDto reportDto) {
         Report report = reportDto.getReport();
         Ticket ticket = ticketRepo.findById(report.getTicketId()).orElseThrow();
         ticket.setStatus(Status.CLOSED);
-        ticketRepo.save(ticket);
+        var id = ticketRepo.save(ticket).getId();
         reportRepo.save(report);
+        return id;
     }
 
     public List<Report> getReports() {

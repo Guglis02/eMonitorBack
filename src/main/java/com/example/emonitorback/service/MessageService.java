@@ -18,10 +18,10 @@ public class MessageService {
         return messageRepo.save(message);
     }
 
-    public void insertMessage(MessageDto messageDto) {
+    public Long insertMessage(MessageDto messageDto) {
         Long creatorId = userService.getCurrentUser().getId();
         Message message = messageDto.getMessage(creatorId);
-        messageRepo.save(message);
+        return messageRepo.save(message).getId();
     }
 
     public List<Message> findByTicketId(Long ticketId) {
