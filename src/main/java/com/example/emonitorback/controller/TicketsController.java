@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.rmi.AlreadyBoundException;
 import java.util.List;
 
 @RequestMapping("/api/v1/tickets")
@@ -50,7 +51,7 @@ public class TicketsController {
 
     @PostMapping("/claim-ticket")
     @Operation(summary = "Monitor pega um ticket para si.")
-    public ResponseEntity<Long> claimTicket(@RequestParam Long ticketId) {
+    public ResponseEntity<Long> claimTicket(@RequestParam Long ticketId) throws AlreadyBoundException {
         return new ResponseEntity<>(ticketService.claimTicket(ticketId), HttpStatus.CREATED);
     }
 

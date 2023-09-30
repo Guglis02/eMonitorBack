@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import com.example.emonitorback.response.ErrorResponse;
 
+import java.rmi.AlreadyBoundException;
 import java.security.InvalidParameterException;
 
 @ControllerAdvice
@@ -26,6 +27,10 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(InvalidParameterException.class)
     public ResponseEntity<ErrorResponse> invalidParameterException(InvalidParameterException ex){
         return new ResponseEntity<>(new ErrorResponse("The parameters provided does not match known data"), HttpStatus.EXPECTATION_FAILED);
+    }
+    @ExceptionHandler(AlreadyBoundException.class)
+    public ResponseEntity<ErrorResponse> alreadyBoundException(AlreadyBoundException ex){
+        return new ResponseEntity<>(new ErrorResponse("The ticket was already claimed!"), HttpStatus.EXPECTATION_FAILED);
     }
 
 }

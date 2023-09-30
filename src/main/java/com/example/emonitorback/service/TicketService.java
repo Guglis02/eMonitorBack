@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.AuthorizationServiceException;
 import org.springframework.stereotype.Service;
 
+import java.rmi.AlreadyBoundException;
 import java.security.InvalidParameterException;
 import java.util.List;
 
@@ -40,9 +41,12 @@ public class TicketService {
         return ticketRepo.save(ticket).getId();
     }
 
-    public Long claimTicket(Long ticketId) {
+    public Long claimTicket(Long ticketId) throws AlreadyBoundException {
         User user = userService.getCurrentUser();
         Ticket ticket = ticketRepo.findById(ticketId).orElseThrow();
+        if(ticket.getStatus() != Status.OPEN){
+            throw new AlreadyBoundException("Ticket already taken");
+        }
         ticket.setAssignedMonitorId(user.getId());
         ticket.setStatus(Status.IN_PROGRESS);
         return ticketRepo.save(ticket).getId();
