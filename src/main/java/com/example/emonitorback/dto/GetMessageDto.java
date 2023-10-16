@@ -1,23 +1,21 @@
 package com.example.emonitorback.dto;
 
-import com.example.emonitorback.domain.entities.Message;
+import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
 import java.util.List;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class MessageDto {
+public class GetMessageDto {
+    private Date createdAt;
     private String content;
+    private Long senderId;
     private List<String> attachments;
-    private Long ticketId;
-
-    public Message getMessage(Long creatorId) {
-        return new Message(content, ticketId, creatorId);
-    }
 }
