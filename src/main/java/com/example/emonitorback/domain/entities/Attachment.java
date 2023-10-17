@@ -17,14 +17,14 @@ public class Attachment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
-    private String path;
+    @Column(columnDefinition="TEXT")
+    private String attachment;
 
     @Column
     private Long messageId;
 
-    public Attachment(String path, Long messageId) {
-        this.path = path;
+    public Attachment(String attachment, Long messageId) {
+        this.attachment = attachment;
         this.messageId = messageId;
     }
 }

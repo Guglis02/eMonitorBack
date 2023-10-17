@@ -1,12 +1,8 @@
 package com.example.emonitorback.controller;
 
-import com.example.emonitorback.domain.entities.Message;
 import com.example.emonitorback.domain.entities.Report;
 import com.example.emonitorback.domain.entities.Ticket;
-import com.example.emonitorback.dto.EditTicketDto;
-import com.example.emonitorback.dto.MessageDto;
-import com.example.emonitorback.dto.ReportDto;
-import com.example.emonitorback.dto.TicketDto;
+import com.example.emonitorback.dto.*;
 import com.example.emonitorback.service.MessageService;
 import com.example.emonitorback.service.TicketService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -82,8 +78,8 @@ public class TicketsController {
 
     @GetMapping("/get-messages")
     @Operation(summary = "Retorna todas as mensagens de um determinado ticket.")
-    public List<Message> getMessages(@RequestParam Long ticketId) {
-        return messageService.findByTicketId(ticketId);
+    public List<GetMessageDto> getMessages(@RequestParam Long ticketId) {
+        return messageService.getTicketMessages(ticketId);
     }
 
     @PostMapping("/insert-message")
