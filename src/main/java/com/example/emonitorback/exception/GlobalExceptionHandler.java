@@ -33,4 +33,9 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(new ErrorResponse("The ticket was already claimed!"), HttpStatus.EXPECTATION_FAILED);
     }
 
+    @ExceptionHandler(InvalidDataFormatException.class)
+    public ResponseEntity<ErrorResponse> invalidDataFormatException(InvalidDataFormatException ex){
+        return new ResponseEntity<>(new ErrorResponse("Invalid email format or password size"), HttpStatus.UNPROCESSABLE_ENTITY);
+    }
+
 }

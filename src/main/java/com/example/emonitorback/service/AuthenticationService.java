@@ -6,12 +6,17 @@ import com.example.emonitorback.domain.entities.User;
 import com.example.emonitorback.domain.repo.UserRepo;
 import com.example.emonitorback.dto.AuthenticationDto;
 import com.example.emonitorback.dto.UserDto;
+import com.example.emonitorback.exception.InvalidDataFormatException;
 import com.example.emonitorback.response.AuthenticationResponse;
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import lombok.RequiredArgsConstructor;
+import org.postgresql.util.PSQLException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import java.security.InvalidParameterException;
 
@@ -25,6 +30,12 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationResponse register(UserDto request, Role role) {
+        if(!Pattern
+                .compile("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")
+                .matcher(request.getEmail())
+                .find() || !(request.getPassword().length() >= 8)){
+            throw new InvalidDataFormatException("Invalid email format or password size");
+        }
         var user = User.builder()
                 .name(request.getName())
                 .email(request.getEmail())
