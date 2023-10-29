@@ -10,11 +10,6 @@ services:
     container_name: app
     depends_on:
       - db
-    environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/postgres
-      - SPRING_DATASOURCE_USERNAME=postgres
-      - SPRING_DATASOURCE_PASSWORD=fcEE4b3TXpm139pBjDFKvIlb4jcliKZI6i4L8ekkS9CQlXyt40
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
   
   db:
     image: 'postgres:13.1-alpine'
