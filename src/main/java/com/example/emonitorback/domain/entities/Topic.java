@@ -20,7 +20,7 @@ public class Topic {
     private Long id;
 
     @Column
-    private String name;
+    private TopicEnum name;
 
     @ManyToMany
     @JoinTable(
@@ -30,7 +30,7 @@ public class Topic {
     )
     private List<User> users;
 
-    public Topic(String name) {
+    public Topic(TopicEnum name) {
         this.name = name;
     }
 }

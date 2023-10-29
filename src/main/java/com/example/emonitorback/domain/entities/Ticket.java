@@ -24,7 +24,7 @@ public class Ticket {
     private String subject;
 
     @Column
-    private Long topicId;
+    private TopicEnum topicId;
 
     @Column
     private Long studentCreatorId;
@@ -44,7 +44,7 @@ public class Ticket {
     )
     private List<User> users;
 
-    public Ticket(String subject, Long topicId, Long studentCreatorId) {
+    public Ticket(String subject, TopicEnum topicId, Long studentCreatorId) {
         this.subject = subject;
         this.topicId = topicId;
         this.studentCreatorId = studentCreatorId;
