@@ -68,7 +68,7 @@ public class TicketsController {
     }
 
     @PostMapping("/report-ticket")
-    @Operation(summary = "Aluno denuncia um ticket, o ticket é fechado.")
+    @Operation(summary = "Usuário denuncia um ticket, o ticket é fechado.")
     public ResponseEntity<Long> reportTicket(@RequestBody ReportDto reportDto) {
         return new ResponseEntity<>(reportService.reportTicket(reportDto), HttpStatus.OK);
     }
