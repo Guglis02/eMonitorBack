@@ -40,6 +40,8 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private UserStatus status;
 
+    @Column(nullable = false)
+    private Boolean banned;
 
     @ManyToMany
     @JoinTable(
@@ -55,11 +57,16 @@ public class User implements UserDetails {
         this.password = password;
         this.role = Role.STUDENT;
         this.status = UserStatus.PENDING;
+        this.banned = false;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
+    }
+
+    public void setBanned(boolean banned) {
+        this.banned = banned;
     }
 
     @Override

@@ -44,9 +44,9 @@ public class Ticket {
     )
     private List<User> users;
 
-    public Ticket(String subject, TopicEnum topicId, Long studentCreatorId) {
+    public Ticket(String subject, String topic, Long studentCreatorId) {
         this.subject = subject;
-        this.topicId = topicId;
+        this.topicId = TopicEnum.valueOf(topic);
         this.studentCreatorId = studentCreatorId;
         this.assignedMonitorId = null;
         this.status = Status.OPEN;

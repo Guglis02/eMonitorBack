@@ -6,6 +6,10 @@ import com.example.emonitorback.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import com.example.emonitorback.domain.entities.Report;
+import com.example.emonitorback.service.ReportService;
+import io.swagger.v3.oas.annotations.Operation;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,6 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/admin")
 public class AdminController {
+    private final ReportService reportService;
 
     private final UserService userService;
 
@@ -31,5 +36,23 @@ public class AdminController {
     public HttpStatus rejectMonitor(@RequestParam Long userId){
         userService.rejectUser(userId);
         return HttpStatus.OK;
+    }
+
+    @GetMapping("/get-reports")
+    @Operation(summary = "Retorna todas as denúncias.")
+    public List<Report> getReports() {
+        return reportService.getReports();
+    }
+
+    @PostMapping("/accept-report")
+    @Operation(summary = "Aceita uma denúncia, banindo o usuário reportado.")
+    public void acceptReport(@RequestParam Long reportId){
+        reportService.banUser(reportId);
+    }
+
+    @PostMapping("/reject-report")
+    @Operation(summary = "Rejeite uma denúncia.")
+    public void rejectReport(@RequestParam Long reportId){
+        reportService.rejectReport(reportId);
     }
 }

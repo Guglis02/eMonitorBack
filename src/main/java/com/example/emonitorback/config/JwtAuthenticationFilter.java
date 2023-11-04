@@ -58,7 +58,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         } else if(user.getStatus() == UserStatus.REJECTED){
             throw new RejectedUserException("The user was rejected!");
         }
-        if(1 == 2){
+        if(user.getBanned()){
             throw new BannedUserException("The user is banned from the plataform!");
         }
         filterChain.doFilter(request, response);

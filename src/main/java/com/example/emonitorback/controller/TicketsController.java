@@ -4,6 +4,7 @@ import com.example.emonitorback.domain.entities.Report;
 import com.example.emonitorback.domain.entities.Ticket;
 import com.example.emonitorback.dto.*;
 import com.example.emonitorback.service.MessageService;
+import com.example.emonitorback.service.ReportService;
 import com.example.emonitorback.service.TicketService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -21,10 +22,12 @@ import java.util.List;
 public class TicketsController {
     private final TicketService ticketService;
     private final MessageService messageService;
+    private final ReportService reportService;
 
-    public TicketsController(TicketService ticketService, MessageService messageService) {
+    public TicketsController(TicketService ticketService, MessageService messageService, ReportService reportService) {
         this.ticketService = ticketService;
         this.messageService = messageService;
+        this.reportService = reportService;
     }
 
     @GetMapping("/get-tickets")
@@ -65,15 +68,9 @@ public class TicketsController {
     }
 
     @PostMapping("/report-ticket")
-    @Operation(summary = "Aluno denuncia um ticket, o ticket é fechado.")
+    @Operation(summary = "Usuário denuncia um ticket, o ticket é fechado.")
     public ResponseEntity<Long> reportTicket(@RequestBody ReportDto reportDto) {
-        return new ResponseEntity<>(ticketService.reportTicket(reportDto), HttpStatus.OK);
-    }
-
-    @GetMapping("/get-reports")
-    @Operation(summary = "Retorna todas as denúncias.")
-    public List<Report> getReports() {
-        return ticketService.getReports();
+        return new ResponseEntity<>(reportService.reportTicket(reportDto), HttpStatus.OK);
     }
 
     @GetMapping("/get-messages")

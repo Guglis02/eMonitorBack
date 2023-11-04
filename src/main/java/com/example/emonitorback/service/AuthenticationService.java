@@ -40,6 +40,7 @@ public class AuthenticationService {
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(role)
+                .banned(false)
                 .build();
         if(user.getRole() == Role.MONITOR){
             user.setStatus(UserStatus.PENDING);
