@@ -8,6 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootApplication
 public class EMonitorBackApplication {
@@ -17,12 +18,12 @@ public class EMonitorBackApplication {
     }
 
     @Bean
-    CommandLineRunner run(UserRepo userRepo) {
+    CommandLineRunner run(UserRepo userRepo, PasswordEncoder passwordEncoder) {
         return args -> {
             User admin = User.builder()
                     .name("admin")
                     .email("admin@admin.com")
-                    .password("gustavo-batata-123")
+                    .password(passwordEncoder.encode("gustavo-batata-123"))
                     .role(Role.ADMIN)
                     .status(UserStatus.APPROVED)
                     .banned(false)
