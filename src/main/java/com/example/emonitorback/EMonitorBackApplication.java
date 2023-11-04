@@ -25,6 +25,7 @@ public class EMonitorBackApplication {
                     .password("gustavo-batata-123")
                     .role(Role.ADMIN)
                     .status(UserStatus.APPROVED)
+                    .banned(false)
                     .build();
             userRepo.save(admin);
         };
