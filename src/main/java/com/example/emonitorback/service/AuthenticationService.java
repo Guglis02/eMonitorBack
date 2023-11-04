@@ -2,20 +2,19 @@ package com.example.emonitorback.service;
 
 import com.example.emonitorback.config.JwtService;
 import com.example.emonitorback.domain.entities.Role;
+import com.example.emonitorback.domain.entities.UserStatus;
 import com.example.emonitorback.domain.entities.User;
 import com.example.emonitorback.domain.repo.UserRepo;
 import com.example.emonitorback.dto.AuthenticationDto;
 import com.example.emonitorback.dto.UserDto;
 import com.example.emonitorback.exception.InvalidDataFormatException;
 import com.example.emonitorback.response.AuthenticationResponse;
-import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import lombok.RequiredArgsConstructor;
-import org.postgresql.util.PSQLException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import java.util.regex.Matcher;
+
 import java.util.regex.Pattern;
 
 import java.security.InvalidParameterException;
@@ -42,6 +41,11 @@ public class AuthenticationService {
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(role)
                 .build();
+        if(user.getRole() == Role.MONITOR){
+            user.setStatus(UserStatus.PENDING);
+        } else{
+            user.setStatus(UserStatus.APPROVED);
+        }
         userRepo.save(user);
         var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder()

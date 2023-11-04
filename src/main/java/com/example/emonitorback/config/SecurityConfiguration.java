@@ -29,6 +29,8 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests()
                 .requestMatchers("/api/v1/auth/**", "/v3/api-docs/**","/swagger-ui/**")
                 .permitAll()
+                .requestMatchers("/api/v1/admin/**")
+                .hasAuthority("ADMIN")
                 .anyRequest()
                 .hasAnyAuthority("STUDENT", "MONITOR", "ADMIN")
                 .and()

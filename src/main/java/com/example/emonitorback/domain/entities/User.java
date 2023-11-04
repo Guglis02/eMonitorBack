@@ -37,6 +37,10 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private Role role;
 
+    @Column(nullable = false)
+    private UserStatus status;
+
+
     @ManyToMany
     @JoinTable(
             name = "ticketUsers",
@@ -50,6 +54,7 @@ public class User implements UserDetails {
         this.email = email;
         this.password = password;
         this.role = Role.STUDENT;
+        this.status = UserStatus.PENDING;
     }
 
     @Override
