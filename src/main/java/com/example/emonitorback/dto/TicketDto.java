@@ -14,10 +14,10 @@ import lombok.Setter;
 public class TicketDto {
     private String subject;
     private String content;
-    private TopicEnum topicId;
+    private String topic;
 
     public Ticket getTicket(Long studentCreatorId) {
-        return new Ticket(subject, topicId, studentCreatorId);
+        return new Ticket(subject, topic, studentCreatorId);
     }
 
     public String getContent() {

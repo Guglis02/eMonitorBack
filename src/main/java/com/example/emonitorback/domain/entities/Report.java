@@ -24,6 +24,12 @@ public class Report {
     private Date createdAt;
 
     @Column
+    private Long authorId;
+
+    @Column
+    private Long reportedUserId;
+
+    @Column
     private Long ticketId;
 
     @Column(columnDefinition = "TEXT")
@@ -34,7 +40,9 @@ public class Report {
         createdAt = new Date();
     }
 
-    public Report(Long ticketId, String context) {
+    public Report(Long authorId, Long reportedUserId, Long ticketId, String context) {
+        this.authorId = authorId;
+        this.reportedUserId = reportedUserId;
         this.ticketId = ticketId;
         this.context = context;
     }

@@ -13,12 +13,12 @@ import org.springframework.stereotype.Service;
 import java.rmi.AlreadyBoundException;
 import java.security.InvalidParameterException;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor()
 public class TicketService {
     private final TicketRepo ticketRepo;
-    private final ReportRepo reportRepo;
     private final UserService userService;
     private final MessageService messageService;
 
@@ -63,19 +63,6 @@ public class TicketService {
         ticket.setAssignedMonitorId(null);
         ticket.setStatus(Status.OPEN);
         return ticketRepo.save(ticket).getId();
-    }
-
-    public Long reportTicket(ReportDto reportDto) {
-        Report report = reportDto.getReport();
-        Ticket ticket = ticketRepo.findById(report.getTicketId()).orElseThrow();
-        ticket.setStatus(Status.CLOSED);
-        var id = ticketRepo.save(ticket).getId();
-        reportRepo.save(report);
-        return id;
-    }
-
-    public List<Report> getReports() {
-        return reportRepo.findAll();
     }
 
     public List<Ticket> findTickets() {

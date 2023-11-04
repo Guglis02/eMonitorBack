@@ -1,16 +1,19 @@
 package com.example.emonitorback.controller;
 
 
+import com.example.emonitorback.domain.entities.Report;
+import com.example.emonitorback.service.ReportService;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/admin")
 public class AdminController {
+    private final ReportService reportService;
 
     @GetMapping("/get-monitor-solicitations")
     public void getMonitorSolicitations(){
@@ -19,5 +22,23 @@ public class AdminController {
     @PostMapping("/approve-monitor")
     public void approveMonitor(){
 
+    }
+
+    @GetMapping("/get-reports")
+    @Operation(summary = "Retorna todas as denúncias.")
+    public List<Report> getReports() {
+        return reportService.getReports();
+    }
+
+    @PostMapping("/ban-user")
+    @Operation(summary = "Bane um usuário reportado.")
+    public void banUser(@RequestParam Long reportId){
+        reportService.banUser(reportId);
+    }
+
+    @PostMapping("/reject-report")
+    @Operation(summary = "Rejeite uma denúncia.")
+    public void rejectReport(@RequestParam Long reportId){
+        reportService.rejectReport(reportId);
     }
 }

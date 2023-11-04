@@ -14,7 +14,7 @@ public class ReportDto {
     private Long ticketId;
     private String context;
 
-    public Report getReport() {
-        return new Report(ticketId, context);
+    public Report getReport(Long authorId, Long reportedUserId) {
+        return new Report(authorId, reportedUserId, ticketId, context);
     }
 }
