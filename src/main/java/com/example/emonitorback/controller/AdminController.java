@@ -30,9 +30,9 @@ public class AdminController {
         return reportService.getReports();
     }
 
-    @PostMapping("/ban-user")
-    @Operation(summary = "Bane um usuário reportado.")
-    public void banUser(@RequestParam Long reportId){
+    @PostMapping("/accept-report")
+    @Operation(summary = "Aceita uma denúncia, banindo o usuário reportado.")
+    public void acceptReport(@RequestParam Long reportId){
         reportService.banUser(reportId);
     }
 
