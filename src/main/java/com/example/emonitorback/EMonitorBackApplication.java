@@ -27,7 +27,10 @@ public class EMonitorBackApplication {
                     .status(UserStatus.APPROVED)
                     .banned(false)
                     .build();
-            userRepo.save(admin);
+            User user = userRepo.findByEmail(admin.getEmail()).orElse(null);
+            if(user == null){
+                userRepo.save(admin);
+            }
         };
     }
 }
