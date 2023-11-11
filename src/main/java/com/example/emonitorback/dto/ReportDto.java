@@ -13,8 +13,9 @@ import lombok.Setter;
 public class ReportDto {
     private Long ticketId;
     private String context;
+    private String title;
 
     public Report getReport(Long authorId, Long reportedUserId) {
-        return new Report(authorId, reportedUserId, ticketId, context);
+        return new Report(authorId, reportedUserId, ticketId, title, context);
     }
 }

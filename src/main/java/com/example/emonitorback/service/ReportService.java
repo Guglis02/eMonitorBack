@@ -45,11 +45,12 @@ public class ReportService {
         return reportRepo.findAll();
     }
 
-    public void banUser(Long reportId) {
+    public User banUser(Long reportId) {
         Report report = reportRepo.findById(reportId).orElseThrow();
         User user = userRepo.findById(report.getReportedUserId()).orElseThrow();
         user.setBanned(true);
         reportRepo.delete(report);
+        return user;
     }
 
     public void rejectReport(Long reportId) {

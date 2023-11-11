@@ -27,32 +27,34 @@ public class AdminController {
         return new ResponseEntity<>(userService.findMonitorRequests(), HttpStatus.OK);
     }
     @PostMapping("/approve-monitor")
-    public HttpStatus approveMonitor(@RequestParam Long userId){
+    public ResponseEntity<Long> approveMonitor(@RequestParam Long userId){
         userService.approveUser(userId);
-        return HttpStatus.OK;
+        return new ResponseEntity<>(userId, HttpStatus.OK);
     }
 
     @PostMapping("/reject-monitor")
-    public HttpStatus rejectMonitor(@RequestParam Long userId){
+    public ResponseEntity<Long> rejectMonitor(@RequestParam Long userId){
         userService.rejectUser(userId);
-        return HttpStatus.OK;
+        return new ResponseEntity<>(userId, HttpStatus.OK);
     }
 
     @GetMapping("/get-reports")
     @Operation(summary = "Retorna todas as denúncias.")
-    public List<Report> getReports() {
-        return reportService.getReports();
+    public ResponseEntity<List<Report>> getReports() {
+        return new ResponseEntity<>(reportService.getReports(), HttpStatus.OK);
     }
 
     @PostMapping("/accept-report")
     @Operation(summary = "Aceita uma denúncia, banindo o usuário reportado.")
-    public void acceptReport(@RequestParam Long reportId){
-        reportService.banUser(reportId);
+    public ResponseEntity<Long> acceptReport(@RequestParam Long reportId){
+        var user = reportService.banUser(reportId);
+        return new ResponseEntity<>(user.getId(), HttpStatus.OK);
     }
 
     @PostMapping("/reject-report")
     @Operation(summary = "Rejeite uma denúncia.")
-    public void rejectReport(@RequestParam Long reportId){
+    public HttpStatus rejectReport(@RequestParam Long reportId){
         reportService.rejectReport(reportId);
+        return HttpStatus.OK;
     }
 }
