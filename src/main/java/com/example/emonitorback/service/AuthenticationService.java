@@ -7,6 +7,7 @@ import com.example.emonitorback.domain.entities.User;
 import com.example.emonitorback.domain.repo.UserRepo;
 import com.example.emonitorback.dto.AuthenticationDto;
 import com.example.emonitorback.dto.UserDto;
+import com.example.emonitorback.exception.BannedUserException;
 import com.example.emonitorback.exception.InvalidDataFormatException;
 import com.example.emonitorback.response.AuthenticationResponse;
 import lombok.RequiredArgsConstructor;
@@ -61,6 +62,9 @@ public class AuthenticationService {
         );
         var user = userRepo.findByEmail(request.getEmail())
                 .orElseThrow(InvalidParameterException::new);
+        if(user.getBanned()){
+            throw new BannedUserException("The user is banned!");
+        }
         var token = jwtService.generateToken(user);
         return AuthenticationResponse.builder()
                 .token(token)
