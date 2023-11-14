@@ -9,6 +9,8 @@ import com.example.emonitorback.dto.AuthenticationDto;
 import com.example.emonitorback.dto.UserDto;
 import com.example.emonitorback.exception.BannedUserException;
 import com.example.emonitorback.exception.InvalidDataFormatException;
+import com.example.emonitorback.exception.NotApprovedUserException;
+import com.example.emonitorback.exception.RejectedUserException;
 import com.example.emonitorback.response.AuthenticationResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -63,7 +65,12 @@ public class AuthenticationService {
         var user = userRepo.findByEmail(request.getEmail())
                 .orElseThrow(InvalidParameterException::new);
         if(user.getBanned()){
-            throw new BannedUserException("The user is banned!");
+            throw new BannedUserException("The user is banned from the plataform!");
+        }
+        if(user.getStatus() == UserStatus.PENDING){
+            throw new NotApprovedUserException("The user is not approved yet!");
+        } else if(user.getStatus() == UserStatus.REJECTED){
+            throw new RejectedUserException("The user was rejected!");
         }
         var token = jwtService.generateToken(user);
         return AuthenticationResponse.builder()

@@ -45,7 +45,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(NotApprovedUserException.class)
     public ResponseEntity<ErrorResponse> notApprovedUserException(NotApprovedUserException ex){
-        return new ResponseEntity<>(new ErrorResponse("The user is not approved yet!"), HttpStatus.PROCESSING);
+        return new ResponseEntity<>(new ErrorResponse("The user is not approved yet!"), HttpStatus.UPGRADE_REQUIRED);
     }
 
     @ExceptionHandler(RejectedUserException.class)
