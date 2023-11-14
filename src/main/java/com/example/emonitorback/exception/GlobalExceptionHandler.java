@@ -40,17 +40,17 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(BannedUserException.class)
     public ResponseEntity<ErrorResponse> bannedUserException(BannedUserException ex){
-        return new ResponseEntity<>(new ErrorResponse("The user is banned from the plataform!"), HttpStatus.FORBIDDEN);
+        return new ResponseEntity<>(new ErrorResponse("The user is banned from the plataform!"), HttpStatus.LOCKED);
     }
 
     @ExceptionHandler(NotApprovedUserException.class)
     public ResponseEntity<ErrorResponse> notApprovedUserException(NotApprovedUserException ex){
-        return new ResponseEntity<>(new ErrorResponse("The user is not approved yet!"), HttpStatus.FORBIDDEN);
+        return new ResponseEntity<>(new ErrorResponse("The user is not approved yet!"), HttpStatus.PROCESSING);
     }
 
     @ExceptionHandler(RejectedUserException.class)
     public ResponseEntity<ErrorResponse> rejectedUserException(RejectedUserException ex){
-        return new ResponseEntity<>(new ErrorResponse("The user was rejected!"), HttpStatus.FORBIDDEN);
+        return new ResponseEntity<>(new ErrorResponse("The user was rejected!"), HttpStatus.NOT_ACCEPTABLE);
     }
 
 }
